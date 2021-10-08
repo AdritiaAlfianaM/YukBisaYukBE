@@ -1,0 +1,18 @@
+# Dependencies
+node_modules
+
+# yarn error logs
+yarn-error.log
+
+# Environment variables
+.env*
+!.env*.example
+
+# Code coverage
+coverage
+
+# Public files
+public
+
+# Firebase key
+serviceAccountKey.json
