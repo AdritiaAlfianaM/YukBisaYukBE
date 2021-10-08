@@ -1,5 +1,6 @@
 const express = require('express');
 const helmet = require('helmet');
+const cookieParser = require('cookie-parser');
 const xss = require('xss-clean');
 const cors = require('cors');
 const httpStatus = require('http-status');
@@ -29,8 +30,22 @@ app.use(express.urlencoded({ extended: true }));
 app.use(xss());
 
 // enable cors
-app.use(cors());
-app.options('*', cors());
+const whitelist = [`http://localhost:3000`];
+const corsOptions = {
+  credentials: true,
+  origin(origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+};
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+
+// parse cookie
+app.use(cookieParser());
 
 // api routes
 app.use('/', routes);
