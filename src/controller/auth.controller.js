@@ -8,6 +8,11 @@ const googleLogin = catchAsync(async (req, res) => {
   res.send({ message: 'success' });
 });
 
+const logout = catchAsync(async (req, res) => {
+  res.clearCookie('session', { httpOnly: true });
+});
+
 module.exports = {
   googleLogin,
+  logout,
 };

@@ -7,4 +7,6 @@ const router = express.Router();
 
 router.post('/google-login', validate(authValidation.googleLogin), authController.googleLogin);
 
+router.post('/logout', authController.logout);
+
 module.exports = router;
