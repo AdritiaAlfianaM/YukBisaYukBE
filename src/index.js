@@ -7,6 +7,7 @@ let server;
 
 mongoose.set('sanitizeFilter', true);
 mongoose.connect(config.mongoose.url, config.mongoose.options).then(() => {
+  // connect to mongodb
   logger.info('Connected to MongoDB');
   server = app.listen(config.port, () => {
     logger.info(`Listening to port ${config.port}`);
