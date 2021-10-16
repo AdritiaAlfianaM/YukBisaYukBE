@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { toJSON, paginate } = require('./plugins');
 
-const projectSchema = mongoose.Schema(
+const agendaSchema = mongoose.Schema(
   {
     name: {
       type: String,
@@ -12,9 +12,15 @@ const projectSchema = mongoose.Schema(
       ref: 'User',
       required: true,
     },
-    collaborator: {
+    subproject: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'Subproject',
+      required: true,
+    },
+    feature: {
+      // kumpulan fitur2
       type: [mongoose.SchemaTypes.ObjectId],
-      email: [String],
+      required: true,
     },
   },
   {
@@ -23,12 +29,12 @@ const projectSchema = mongoose.Schema(
 );
 
 // add plugin that converts mongoose to json
-projectSchema.plugin(toJSON);
-projectSchema.plugin(paginate);
+agendaSchema.plugin(toJSON);
+agendaSchema.plugin(paginate);
 
 /**
- * @typedef Project
+ * @typedef Agenda
  */
-const Project = mongoose.model('Project', projectSchema);
+const Agenda = mongoose.model('Agenda', agendaSchema);
 
-module.exports = Project;
+module.exports = Agenda;

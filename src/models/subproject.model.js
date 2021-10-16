@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const { toJSON, paginate } = require('./plugins');
 
-const projectSchema = mongoose.Schema(
+const subprojectSchema = mongoose.Schema(
   {
     name: {
       type: String,
@@ -12,9 +12,10 @@ const projectSchema = mongoose.Schema(
       ref: 'User',
       required: true,
     },
-    collaborator: {
-      type: [mongoose.SchemaTypes.ObjectId],
-      email: [String],
+    project: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'Project',
+      required: true,
     },
   },
   {
@@ -23,12 +24,12 @@ const projectSchema = mongoose.Schema(
 );
 
 // add plugin that converts mongoose to json
-projectSchema.plugin(toJSON);
-projectSchema.plugin(paginate);
+subprojectSchema.plugin(toJSON);
+subprojectSchema.plugin(paginate);
 
 /**
- * @typedef Project
+ * @typedef Subproject
  */
-const Project = mongoose.model('Project', projectSchema);
+const Subproject = mongoose.model('Subproject', subprojectSchema);
 
-module.exports = Project;
+module.exports = Subproject;

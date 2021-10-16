@@ -18,7 +18,7 @@ const loginUserGoogle = async (idToken) => {
   } catch {
     throw new ApiError(httpStatus.UNAUTHORIZED, 'Invalid ID token'); // kalo error bakal ngerespon itu ke user
   }
-  const expiresIn = 60 * 60 * 24 * 5 * 1000; // 5 days
+  const expiresIn = 60 * 60 * 24 * 5 * 1000;
   let sessionCookie;
   try {
     sessionCookie = await firebase.auth().createSessionCookie(idToken, { expiresIn });
