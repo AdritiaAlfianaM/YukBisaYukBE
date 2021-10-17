@@ -12,9 +12,8 @@ const projectSchema = mongoose.Schema(
       ref: 'User',
       required: true,
     },
-    collaborator: {
-      type: [mongoose.SchemaTypes.ObjectId],
-      email: [String],
+    collaborators: {
+      type: [String],
     },
   },
   {

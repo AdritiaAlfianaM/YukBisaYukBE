@@ -1,12 +1,13 @@
 const Joi = require('joi');
 
-const createProject = {
+const createSubproject = {
   body: Joi.object().keys({
     name: Joi.string().required(),
+    projectId: Joi.string().required(),
   }),
 };
 
-const getProjects = {
+const getSubprojects = {
   query: Joi.object().keys({
     name: Joi.string(),
     sortBy: Joi.string(),
@@ -16,6 +17,6 @@ const getProjects = {
 };
 
 module.exports = {
-  createProject,
-  getProjects,
+  createSubproject,
+  getSubprojects,
 };

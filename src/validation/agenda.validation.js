@@ -1,14 +1,14 @@
 const Joi = require('joi');
 
-const createProject = {
+const createAgenda = {
   body: Joi.object().keys({
     name: Joi.string().required(),
+    subprojectId: Joi.string().required(),
   }),
 };
 
-const getProjects = {
+const getAgendas = {
   query: Joi.object().keys({
-    name: Joi.string(),
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
     page: Joi.number().integer(),
@@ -16,6 +16,6 @@ const getProjects = {
 };
 
 module.exports = {
-  createProject,
-  getProjects,
+  createAgenda,
+  getAgendas,
 };
