@@ -1,7 +1,10 @@
 const httpStatus = require('http-status');
+const safe = require('safe-regex');
 const catchAsync = require('../utils/catchAsync');
 const { projectService } = require('../services');
 const pick = require('../utils/pick');
+const escape = require('../utils/escapeRegExp');
+const ApiError = require('../utils/ApiError');
 
 const createProject = catchAsync(async (req, res) => {
   const project = await projectService.createProject(req.body, req.user.id);
@@ -10,7 +13,15 @@ const createProject = catchAsync(async (req, res) => {
 
 const getProjects = catchAsync(async (req, res) => {
   const { name } = req.query;
-  const nameRegex = name ? new RegExp(name, 'i') : undefined;
+
+  // Escaping RegExp https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions#escaping
+
+  const escapedName = name ? escape(name) : '';
+  if (escapedName && !safe(escapedName)) {
+    throw new ApiError(httpStatus.BAD_REQUEST, 'Bad Input!');
+  }
+
+  const nameRegex = name ? new RegExp(escapedName, 'i') : undefined;
   const filter = { user: req.user.id, ...(nameRegex && { name: nameRegex }) };
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
   const result = await projectService.queryProjects(filter, options);

@@ -4,7 +4,7 @@ const { subprojectService } = require('../services');
 const pick = require('../utils/pick');
 
 const createSubproject = catchAsync(async (req, res) => {
-  const subproject = await subprojectService.createProject(req.body, req.user.id, req.project.id);
+  const subproject = await subprojectService.createSubproject(req.body, req.user.id);
   res.status(httpStatus.CREATED).send(subproject);
 });
 

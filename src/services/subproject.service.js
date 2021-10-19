@@ -5,8 +5,8 @@ const { Subproject } = require('../models');
  * @param {Object} subprojectBody
  * @returns {Promise<Subproject>}
  */
-const createSubproject = async (subprojectBody, user, project) => {
-  return Subproject.create({ ...subprojectBody, user, project });
+const createSubproject = async (subprojectBody, user) => {
+  return Subproject.create({ ...subprojectBody, user });
 };
 
 /**
@@ -27,7 +27,7 @@ const getSubprojectById = async (id) => {
  * @param {number} [options.page] - Current page (default = 1)
  * @returns {Promise<QueryResult>}
  */
-const queryProjects = async (filter, options) => {
+const querySubprojects = async (filter, options) => {
   const subprojects = await Subproject.paginate(filter, options);
   return subprojects;
 };
@@ -35,5 +35,5 @@ const queryProjects = async (filter, options) => {
 module.exports = {
   createSubproject,
   getSubprojectById,
-  queryProjects,
+  querySubprojects,
 };

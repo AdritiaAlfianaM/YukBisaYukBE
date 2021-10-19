@@ -3,7 +3,7 @@ const Joi = require('joi');
 const createSubproject = {
   body: Joi.object().keys({
     name: Joi.string().required(),
-    projectId: Joi.string().required(),
+    project: Joi.string().required(),
   }),
 };
 
