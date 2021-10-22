@@ -9,13 +9,19 @@ const createSubproject = catchAsync(async (req, res) => {
 });
 
 const getSubprojects = catchAsync(async (req, res) => {
-  const filter = { user: req.user.id, ...pick(req.query, ['name']) };
+  const filter = { user: req.user.id, ...pick(req.query, ['name', 'project']) };
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
   const result = await subprojectService.querySubprojects(filter, options);
   res.send(result);
 });
 
+const deleteSubproject = catchAsync(async (req, res) => {
+  await subprojectService.deleteProject(req.params.subprojectId);
+  res.status(httpStatus.NO_CONTENT).send();
+});
+
 module.exports = {
   createSubproject,
   getSubprojects,
+  deleteSubproject,
 };

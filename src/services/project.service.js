@@ -1,4 +1,7 @@
+const httpStatus = require('http-status');
+const ApiError = require('../utils/ApiError');
 const { Project } = require('../models');
+const subprojectService = require('./subproject.service');
 
 /**
  * Create a project
@@ -32,8 +35,18 @@ const queryProjects = async (filter, options) => {
   return projects;
 };
 
+const deleteProject = async (projectId) => {
+  const project = await Project.findById(projectId);
+  if (!project) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Project not found');
+  }
+  await subprojectService.deleteSubprojects(project.id);
+  return project.remove();
+};
+
 module.exports = {
   createProject,
   getProjectById,
   queryProjects,
+  deleteProject,
 };

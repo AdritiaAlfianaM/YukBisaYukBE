@@ -15,7 +15,14 @@ const getProjects = {
   }),
 };
 
+const deleteProject = {
+  params: Joi.object().keys({
+    projectId: Joi.string(),
+  }),
+};
+
 module.exports = {
   createProject,
   getProjects,
+  deleteProject,
 };

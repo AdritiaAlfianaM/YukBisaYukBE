@@ -13,10 +13,18 @@ const getSubprojects = {
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
     page: Joi.number().integer(),
+    project: Joi.string(),
+  }),
+};
+
+const deleteSubproject = {
+  params: Joi.object().keys({
+    subprojectId: Joi.string(),
   }),
 };
 
 module.exports = {
   createSubproject,
   getSubprojects,
+  deleteSubproject,
 };

@@ -10,4 +10,6 @@ router.post('/', auth, projectController.createProject);
 
 router.get('/', auth, validate(projectValidation.getProjects), projectController.getProjects);
 
+router.delete('/:projectId', auth, validate(projectValidation.deleteProject), projectController.deleteProject);
+
 module.exports = router;
