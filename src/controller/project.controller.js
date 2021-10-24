@@ -33,8 +33,14 @@ const deleteProject = catchAsync(async (req, res) => {
   res.status(httpStatus.NO_CONTENT).send();
 });
 
+const updateProject = catchAsync(async (req, res) => {
+  const project = await projectService.updateProject(req.params.projectId, req.body);
+  res.send(project);
+});
+
 module.exports = {
   createProject,
   getProjects,
   deleteProject,
+  updateProject,
 };

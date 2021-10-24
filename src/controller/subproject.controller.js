@@ -16,12 +16,18 @@ const getSubprojects = catchAsync(async (req, res) => {
 });
 
 const deleteSubproject = catchAsync(async (req, res) => {
-  await subprojectService.deleteProject(req.params.subprojectId);
+  await subprojectService.deleteSubproject(req.params.subprojectId);
   res.status(httpStatus.NO_CONTENT).send();
+});
+
+const updateSubproject = catchAsync(async (req, res) => {
+  const subproject = await subprojectService.updateSubproject(req.params.subprojectId, req.body);
+  res.send(subproject);
 });
 
 module.exports = {
   createSubproject,
   getSubprojects,
   deleteSubproject,
+  updateSubproject,
 };

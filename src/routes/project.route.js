@@ -12,4 +12,6 @@ router.get('/', auth, validate(projectValidation.getProjects), projectController
 
 router.delete('/:projectId', auth, validate(projectValidation.deleteProject), projectController.deleteProject);
 
+router.patch('/:projectId', auth, validate(projectValidation.updateProject), projectController.updateProject);
+
 module.exports = router;

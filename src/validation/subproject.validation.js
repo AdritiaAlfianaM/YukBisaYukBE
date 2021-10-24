@@ -23,8 +23,18 @@ const deleteSubproject = {
   }),
 };
 
+const updateSubproject = {
+  params: Joi.object().keys({
+    subprojectId: Joi.string(),
+  }),
+  body: Joi.object().keys({
+    name: Joi.string(),
+  }),
+};
+
 module.exports = {
   createSubproject,
   getSubprojects,
   deleteSubproject,
+  updateSubproject,
 };

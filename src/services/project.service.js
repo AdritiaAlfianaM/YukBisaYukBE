@@ -44,9 +44,20 @@ const deleteProject = async (projectId) => {
   return project.remove();
 };
 
+const updateProject = async (id, updateBody) => {
+  const project = await getProjectById(id);
+  if (!project) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Project not found');
+  }
+  Object.assign(project, updateBody);
+  await project.save();
+  return project;
+};
+
 module.exports = {
   createProject,
   getProjectById,
   queryProjects,
   deleteProject,
+  updateProject,
 };

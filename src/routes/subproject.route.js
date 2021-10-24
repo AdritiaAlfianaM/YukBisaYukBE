@@ -17,4 +17,6 @@ router.delete(
   subprojectController.deleteSubproject
 );
 
+router.patch('/:subprojectId', auth, validate(subprojectValidation.updateSubproject), subprojectController.updateSubproject);
+
 module.exports = router;
