@@ -17,10 +17,22 @@ const agendaSchema = mongoose.Schema(
       ref: 'Subproject',
       required: true,
     },
-    feature: {
-      // kumpulan fitur2
-      type: [mongoose.SchemaTypes.ObjectId],
+    status: {
+      type: String,
+      default: '',
+      enum: ['In Progress', 'Stuck', 'Done', ''],
+    },
+    description: {
+      type: String,
+      default: 'Aschente',
+    },
+    dueDate: {
+      type: Date,
       required: true,
+    },
+    pathFileSharing: {
+      type: [String],
+      default: [],
     },
   },
   {

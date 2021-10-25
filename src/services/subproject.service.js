@@ -56,6 +56,15 @@ const updateSubproject = async (id, updateBody) => {
   return subproject;
 };
 
+const incrementAgenda = async (id) => {
+  const subproject = await getSubprojectById(id);
+  if (!subproject) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Subproject not found');
+  }
+  subproject.agendaCount += 1;
+  return subproject.save();
+};
+
 module.exports = {
   createSubproject,
   getSubprojectById,
@@ -63,4 +72,5 @@ module.exports = {
   deleteSubproject,
   deleteSubprojects,
   updateSubproject,
+  incrementAgenda,
 };

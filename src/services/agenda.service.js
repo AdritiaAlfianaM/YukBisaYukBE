@@ -1,4 +1,5 @@
 const { Agenda } = require('../models');
+const subprojectService = require('./subproject.service');
 
 /**
  * Create a project
@@ -6,6 +7,7 @@ const { Agenda } = require('../models');
  * @returns {Promise<Agenda>}
  */
 const createAgenda = async (agendaBody, user, subproject, feature) => {
+  await subprojectService.incrementAgenda(subproject);
   return Agenda.create({ ...agendaBody, user, subproject, feature });
 };
 

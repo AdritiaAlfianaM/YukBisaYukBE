@@ -17,6 +17,22 @@ const subprojectSchema = mongoose.Schema(
       ref: 'Project',
       required: true,
     },
+    agendaDone: {
+      type: Number,
+      default: 0,
+    },
+    agendaStuck: {
+      type: Number,
+      default: 0,
+    },
+    agendaProgress: {
+      type: Number,
+      default: 0,
+    },
+    agendaCount: {
+      type: Number,
+      default: 0,
+    },
   },
   {
     timestamps: true,
