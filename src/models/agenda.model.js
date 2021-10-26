@@ -12,6 +12,11 @@ const agendaSchema = mongoose.Schema(
       ref: 'User',
       required: true,
     },
+    project: {
+      type: mongoose.SchemaTypes.ObjectId,
+      ref: 'Project',
+      required: true,
+    },
     subproject: {
       type: mongoose.SchemaTypes.ObjectId,
       ref: 'Subproject',
@@ -24,11 +29,10 @@ const agendaSchema = mongoose.Schema(
     },
     description: {
       type: String,
-      default: 'Aschente',
+      default: '',
     },
     dueDate: {
       type: Date,
-      required: true,
     },
     pathFileSharing: {
       type: [String],

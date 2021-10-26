@@ -15,7 +15,13 @@ const getAgendas = catchAsync(async (req, res) => {
   res.send(result);
 });
 
+const updateAgenda = catchAsync(async (req, res) => {
+  const agenda = await agendaService.updateAgenda(req.params.agendaId, req.body);
+  res.send(agenda);
+});
+
 module.exports = {
   createAgenda,
   getAgendas,
+  updateAgenda,
 };

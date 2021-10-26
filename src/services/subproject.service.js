@@ -65,6 +65,40 @@ const incrementAgenda = async (id) => {
   return subproject.save();
 };
 
+const updateAgendaStatus = async (id, prevStatus, nextStatus) => {
+  const subproject = await getSubprojectById(id);
+  if (!subproject) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Subproject not found');
+  }
+  switch (prevStatus) {
+    case 'In Progress':
+      subproject.agendaProgress -= 1;
+      break;
+    case 'Done':
+      subproject.agendaDone -= 1;
+      break;
+    case 'Stuck':
+      subproject.agendaStuck -= 1;
+      break;
+    default:
+      break;
+  }
+  switch (nextStatus) {
+    case 'In Progress':
+      subproject.agendaProgress += 1;
+      break;
+    case 'Done':
+      subproject.agendaDone += 1;
+      break;
+    case 'Stuck':
+      subproject.agendaStuck += 1;
+      break;
+    default:
+      break;
+  }
+  return subproject.save();
+};
+
 module.exports = {
   createSubproject,
   getSubprojectById,
@@ -73,4 +107,5 @@ module.exports = {
   deleteSubprojects,
   updateSubproject,
   incrementAgenda,
+  updateAgendaStatus,
 };

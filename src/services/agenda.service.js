@@ -1,14 +1,16 @@
+const httpStatus = require('http-status');
 const { Agenda } = require('../models');
 const subprojectService = require('./subproject.service');
+const ApiError = require('../utils/ApiError');
 
 /**
  * Create a project
  * @param {Object} agendaBody
  * @returns {Promise<Agenda>}
  */
-const createAgenda = async (agendaBody, user, subproject, feature) => {
-  await subprojectService.incrementAgenda(subproject);
-  return Agenda.create({ ...agendaBody, user, subproject, feature });
+const createAgenda = async (agendaBody, user) => {
+  await subprojectService.incrementAgenda(agendaBody.subproject);
+  return Agenda.create({ ...agendaBody, user });
 };
 
 /**
@@ -34,8 +36,19 @@ const queryAgenda = async (filter, options) => {
   return agenda;
 };
 
+const updateAgenda = async (id, updateBody) => {
+  const agenda = await getAgendaById(id);
+  if (!agenda) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Agenda not found');
+  }
+  Object.assign(agenda, updateBody);
+  await agenda.save();
+  return agenda;
+};
+
 module.exports = {
   createAgenda,
   getAgendaById,
   queryAgenda,
+  updateAgenda,
 };
