@@ -46,9 +46,18 @@ const updateAgenda = async (id, updateBody) => {
   return agenda;
 };
 
+const deleteAgenda = async (agendaId) => {
+  const agenda = await Agenda.findById(agendaId);
+  if (!agenda) {
+    throw new ApiError(httpStatus.NOT_FOUND, 'Agenda not found');
+  }
+  return agenda.remove();
+};
+
 module.exports = {
   createAgenda,
   getAgendaById,
   queryAgenda,
   updateAgenda,
+  deleteAgenda,
 };

@@ -21,9 +21,16 @@ const updateAgenda = {
 
 const getAgendas = {
   query: Joi.object().keys({
+    subproject: Joi.string(), // ID Subproject
     sortBy: Joi.string(),
     limit: Joi.number().integer(),
     page: Joi.number().integer(),
+  }),
+};
+
+const deleteAgenda = {
+  params: Joi.object().keys({
+    agendaId: Joi.string(),
   }),
 };
 
@@ -31,4 +38,5 @@ module.exports = {
   createAgenda,
   getAgendas,
   updateAgenda,
+  deleteAgenda,
 };

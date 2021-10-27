@@ -9,7 +9,7 @@ const createAgenda = catchAsync(async (req, res) => {
 });
 
 const getAgendas = catchAsync(async (req, res) => {
-  const filter = { user: req.user.id };
+  const filter = { user: req.user.id, ...pick(req.query, ['subproject']) };
   const options = pick(req.query, ['sortBy', 'limit', 'page']);
   const result = await agendaService.queryAgenda(filter, options);
   res.send(result);
@@ -20,8 +20,14 @@ const updateAgenda = catchAsync(async (req, res) => {
   res.send(agenda);
 });
 
+const deleteAgenda = catchAsync(async (req, res) => {
+  await agendaService.deleteAgenda(req.params.agendaId);
+  res.status(httpStatus.NO_CONTENT).send();
+});
+
 module.exports = {
   createAgenda,
   getAgendas,
   updateAgenda,
+  deleteAgenda,
 };

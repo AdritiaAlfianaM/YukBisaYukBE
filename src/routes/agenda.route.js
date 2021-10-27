@@ -10,6 +10,8 @@ router.post('/', auth, validate(agendaValidation.createAgenda), agendaController
 
 router.get('/', auth, validate(agendaValidation.getAgendas), agendaController.getAgendas);
 
+router.delete('/:agendaId', auth, validate(agendaValidation.deleteAgenda), agendaController.deleteAgenda);
+
 router.patch('/:agendaId', auth, validate(agendaValidation.updateAgenda), agendaController.updateAgenda);
 
 module.exports = router;
