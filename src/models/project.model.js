@@ -13,7 +13,8 @@ const projectSchema = mongoose.Schema(
       required: true,
     },
     collaborators: {
-      type: [String],
+      type: [mongoose.SchemaTypes.ObjectId],
+      default: [],
     },
   },
   {

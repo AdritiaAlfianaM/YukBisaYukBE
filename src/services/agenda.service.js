@@ -9,7 +9,7 @@ const ApiError = require('../utils/ApiError');
  * @returns {Promise<Agenda>}
  */
 const createAgenda = async (agendaBody, user) => {
-  await subprojectService.incrementAgenda(agendaBody.subproject);
+  await subprojectService.changeAgendaCount(agendaBody.subproject);
   return Agenda.create({ ...agendaBody, user });
 };
 
@@ -41,6 +41,9 @@ const updateAgenda = async (id, updateBody) => {
   if (!agenda) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Agenda not found');
   }
+  if (updateBody.status) {
+    await subprojectService.updateAgendaStatus(agenda.subproject, agenda.status, updateBody.status);
+  }
   Object.assign(agenda, updateBody);
   await agenda.save();
   return agenda;
@@ -51,6 +54,7 @@ const deleteAgenda = async (agendaId) => {
   if (!agenda) {
     throw new ApiError(httpStatus.NOT_FOUND, 'Agenda not found');
   }
+  await subprojectService.changeAgendaCount(agenda.subproject, -1);
   return agenda.remove();
 };
 
