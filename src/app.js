@@ -30,11 +30,10 @@ app.use(express.urlencoded({ extended: true }));
 app.use(xss());
 
 // enable cors
-const whitelist = [`http://localhost:3000`];
 const corsOptions = {
   credentials: true,
   origin(origin, callback) {
-    if (whitelist.indexOf(origin) !== -1) {
+    if (origin) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
